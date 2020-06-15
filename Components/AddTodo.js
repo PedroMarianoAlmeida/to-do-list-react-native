@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { StyleSheet, View, TextInput, Button} from 'react-native';
+import { StyleSheet, View, TextInput, Button, Alert} from 'react-native';
 
 const AddTodo = ({ addItem }) => {
     
@@ -8,10 +8,13 @@ const AddTodo = ({ addItem }) => {
     const changeHandler = (val) => {
         setText(val);
     }
+    
+    const addTodoError = () => {
+        Alert.alert('OOPS!', 'min 3 chars', [{text: 'Understood'}])
+    }
 
-    //When I put this on "onPress" in the Button doesn't works, I don't know why (because is equal to "changeHandler")
     const pressHandler = (text) => {
-        addItem(text);
+        text.length > 3 ? addItem(text) : addTodoError();
     }
 
     return (
@@ -25,7 +28,7 @@ const AddTodo = ({ addItem }) => {
             <Button 
                 title='Add Todo'
                 color='coral'
-                onPress={ () => addItem(text) }
+                onPress={ () => pressHandler(text) } //Without the arrow function doesn't work
             />
         </View>
     );
