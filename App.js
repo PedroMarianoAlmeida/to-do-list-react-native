@@ -12,16 +12,18 @@ export default function App() {
     {text:"Make money", key:"3"} 
   ]);
 
+  const [currentKey, setCurrentKey] = useState(4);
+
   const deleteItem = (key) => {
     const newList = todos.filter( (item) => item.key !== key);
     setTodos(newList);
   }
 
-  let currentKey = 4;
   const addItem = (text) => {
     const prevTodos = [...todos];
-    setTodos([ { text: text, key: currentKey.toString() }, ...prevTodos ]);
-    currentKey++;
+    const myKey = currentKey;
+    setTodos([ { text: text, key: myKey.toString() }, ...prevTodos ]);
+    setCurrentKey(myKey + 1);
   }
   
   return (
@@ -49,10 +51,12 @@ const styles = StyleSheet.create({
   },
 
   content: {
-    margin: 20
+    margin: 20,
+    flex: 1
   },
 
   list: {
-    padding: 40
+    padding: 40,
+    flex: 1
   }
 });
